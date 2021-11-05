@@ -12,7 +12,7 @@ This image transformation follows these three steps:
 
 # running the program
 At present, this program must be run in the terminal window.
-Make sure to chmod the file if you want to run it without the python3 command!
+Make sure to chmod the file if you want to run it without the python command!
 
 command for changed mode: \[user@domain]$ ./predator.py image-path \[k-value] \[minmax]
 
