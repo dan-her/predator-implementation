@@ -14,11 +14,11 @@ This image transformation follows these three steps:
 At present, this program must be run in the terminal window.
 Make sure to chmod the file if you want to run it without the python3 command!
 
-command for changed mode: \[user@domain]$ ./predator.py image-path k-value minmax
+command for changed mode: \[user@domain]$ ./predator.py image-path \[k-value] \[minmax]
 
-command for unchanged mode:\[user@domain]$ python predator.py image-path k-value minmax
+command for unchanged mode:\[user@domain]$ python predator.py image-path \[k-value] \[minmax]
 
-image-path - path to a desired image
+image-path - path to a desired image. This is the only required argument.
 
 k-value - the k-value needed by the sobel transformation. A higher value results in thicker edges. - default of 3
 
