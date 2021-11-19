@@ -16,7 +16,7 @@ Make sure to chmod the file if you want to run it without the python command!
 
 command for changed mode: \[user@domain]$ ./predator.py image-path \[k-value] \[minmax] \[pixelize]
 
-command for unchanged mode:\[user@domain]$ python predator.py image-path \[k-value] \[minmax] \[pixelize-size]
+command for unchanged mode:\[user@domain]$ python predator.py image-path \[k-value] \[minmax] \[pixelize]
 
 image-path - path to a desired image. This is the only required argument.
 
