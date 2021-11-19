@@ -26,6 +26,14 @@ def minmax_rgb(i, w, h, m):
         x+=1 
     return i
     
+def pixelize(i, pix_w, pix_h):
+    i_h, i_w = i.shape[:2]
+    # shrink image
+    i = cv.resize(i, (pix_w, pix_h), interpolation=cv.INTER_CUBIC)
+    # resize
+    pixelized = cv.resize(i, (i_w, i_h), interpolation=cv.INTER_NEAREST)
+    return pixelized
+
 def sobel(i, k):
     # the general convention is to use a gaussian blur on the image, 
     # but the pixelization should take care of that here.
@@ -39,6 +47,7 @@ def sobel(i, k):
     cv.waitKey(0)
     cv.destroyAllWindows()
 
+pix_w, pix_h = (64, 64)
 k = 3
 mode = 'min'
 if len(sys.argv) > 3:
@@ -53,6 +62,8 @@ if len(sys.argv) > 3:
     if mode != 'min' or mode != 'max':
         print("Error: third flag must be \"min\" or \"max\"")
         sys.exit(1)
+    pix_w = int(sys.argv[4])
+    pix_h = int(sys.argv[5])
 try:
    i = cv.imread(sys.argv[1])
    hig, wid, _ = i.shape
@@ -60,4 +71,5 @@ except:
     print("Error: image does not exist")
     sys.exit(1)
 j = minmax_rgb(i, wid, hig, mode)
+i = pixelize(j, pix_w, pix_h)
 sobel(i, k)
