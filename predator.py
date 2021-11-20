@@ -34,11 +34,11 @@ def pixelize(i, s, pix_h):
     pixelized = cv.resize(i, (i_w, i_h), interpolation=cv.INTER_NEAREST)
     return pixelized
 
-def sobel(i, k):
+def sobel(i, k, s):
     # the general convention is to use a gaussian blur on the image,
     # but the pixelization should take care of that here.
-    sobx = cv.Sobel(i,cv.CV_16S,1,0,ksize=k,scale=1,delta=0)
-    soby = cv.Sobel(i,cv.CV_16S,0,1,ksize=k,scale=1,delta=0)
+    sobx = cv.Sobel(i,cv.CV_16S,1,0,ksize=k,scale=s,delta=0)
+    soby = cv.Sobel(i,cv.CV_16S,0,1,ksize=k,scale=s,delta=0)
     abSobx = cv.convertScaleAbs(sobx) # makes the sobels absolute
     abSoby = cv.convertScaleAbs(soby)
     # approximates the sobel algo using built-in cv2 functions
@@ -48,6 +48,7 @@ def sobel(i, k):
     cv.imshow('output', sobtot)
     cv.waitKey(0)
     cv.destroyAllWindows()
+
 
 # check if a valid filename is given
 try:
@@ -60,6 +61,7 @@ except:
 k = 3 # the 'k' value for the sobel filter. default of 3
 mode = 'min' # can choose to minimize or maximize RGB. default of min
 shrinkage = 3 # amount of pixelization averaging. default of 3x3 area
+scale = 1 # scale of the sobel transform (edge "brightness" in output)
 
 if len(sys.argv) > 2: # if we have a second arg, it should be k
     k = int(sys.argv[2])
@@ -69,15 +71,17 @@ if len(sys.argv) > 2: # if we have a second arg, it should be k
     if k > 31:
         print("Error: k must be less than 32")
         sys.exit(1)
-if len(sys.argv) > 3: # third argument should be min or max
-    mode = sys.argv[3]
+if len(sys.argv) > 3:
+    scale = int(sys.argv[3])
+if len(sys.argv) > 4: # third argument should be min or max
+    mode = sys.argv[4]
     if mode != 'min' and mode != 'max':
         print("Error: third flag must be \"min\" or \"max\"")
         sys.exit(1)
-if len(sys.argv) > 4: # last arg should be the amount of pixelization
-    shrinkage = int(sys.argv[4])
+if len(sys.argv) > 5: # last arg should be the amount of pixelization
+    shrinkage = int(sys.argv[5])
 
 pix_w, pix_h = (int(wid/shrinkage), int(hig/shrinkage))
 j = minmax_rgb(i, wid, hig, mode)
 i = pixelize(j, pix_w, pix_h)
-sobel(i, k)
+sobel(i, k, scale)
