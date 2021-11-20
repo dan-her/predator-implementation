@@ -26,7 +26,7 @@ scale - the scale value used in the sobel transformation. A higher value results
 
 minmax - "min" or "max", chooses whether to select the minimum or maximum RGB value for each pixel - default of "min"
 
-pixelize - the X of the pixelize step's X by X area
+pixelize - the X of the pixelize step's X by X area - default of 3
 
 # image details
 Included in this repository is an example image to put through the transformation, as well as the output of the image when the default values are used.
